@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Lesson1</title>
+    <!-- <script src="https://unpkg.com/vue@next"></script> -->
+    <script src="/vue.global.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <input type="text" v-model="userInput">
+        <!-- интерполяция текста -->
+        <p>1. {{userInput}}</p>
+        <p>2. {{userInput.length < 1 ? "Вы ничего не ввели" : userInput}}</p>
+        <p>3. {{userOutput}}</p>
+        <!-- интерполяция Html -->
+        <p v-html="userHtmlOutput"></p>
+
+
+
+
+    </div>
+    
+    <script src="js/lesson1.js"></script>
+</body>
+</html>

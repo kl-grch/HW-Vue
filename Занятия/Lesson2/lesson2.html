@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/lesson2.css">
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <!-- v-on:имя_события / @имя события
+            v-on:click / @click -->
+        <span class="tab-menu" 
+            :class="{active: currentTab === tab}"
+            v-for="tab in tabs" 
+            v-on:click="currentTab = tab">{{tab.toUpperCase()}}
+        </span>
+
+        <div v-show="currentTab === tabs[0]">
+            <h2>Все книги</h2>
+            <div v-for="book in allBooks">
+                <h2>{{book.title.toUpperCase()}}</h2>
+                <p>{{book.description}}</p>
+                <img :src="book.img" width="400">
+                <div>
+                    <button v-bind:disabled="book.inList"
+                    @click="addToMyList(book)">
+                        {{book.inList ? "Уже в списке" : "Добавить в список"}}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="currentTab === tabs[1]">
+            <h2 v-if="!myList.lenght">В списке нет книг</h2>
+            <div v-else></div>
+            <h2>Мой список</h2>
+            <div v-for="(book, i) in sortedMyList" :key="book.title">
+                <h2>{{book.title.toUpperCase()}}</h2>
+                <p>{{book.description}}</p>
+                <img :src="book.img" width="400">
+                <div>
+                    <button
+                    @click="deleteFromMyList(book, i)">
+                    Убрать из списка
+                    </button>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </div>
+    <script src="JS/lesson2.js"></script>
+</body>
+</html>
