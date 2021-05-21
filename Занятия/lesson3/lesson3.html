@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://unpkg.com/vue@next"></script>
 </head>
 <body>
 <div id="app">
-    <form>
+    <form @submit.prevent="addRequest">
         <h2>Заявка на выбор яхты</h2>
         <fieldset>
             <legend>Контактная информация</legend>
             <div>
                 <label for="name">Введите имя:</label>
-                <input type="text" id="name" name="user">
+                <input type="text" id="name" name="user" v-model.trim="formData.user">
             </div>
 
             <div>
                 <label for="email">Введите email:</label>
-                <input type="email" id="email" name="email">
+                <input type="email" id="email" name="email" v-model.trim="formData.email">
             </div>
 
             <div>
                 <label for="phone">Введите телефон:</label>
-                <input type="text" id="phone" name="phone">
+                <input type="text" id="phone" name="phone" v-model.trim="formData.phone">
             </div>
         </fieldset>
 
@@ -30,19 +31,23 @@
             <legend>Информация для подбора яхты</legend>
             <div>
                 <label for="companies">Укажите производителя:</label>
-                <select id="companies" name="company" multiple>
-                    <option></option>
+                <select id="companies" name="company" multiple v-model="formData.companies">
+                    <option v-for="company in companies" 
+                    :key="company.id" 
+                    :value="company.id">
+                        {{company.name}}
+                    </option>
                 </select>
             </div>
 
             <div>
                 <label>
-                    Максимальная цена (евро): <input type="number" name="price" >
+                    Максимальная цена (евро): <input type="number" name="price" v-model.number="formData.price"> €
                 </label>
             </div>
             <div>
                 <label>
-                    Максимальное количество палуб: <input type="number" name="count">
+                    Максимальное количество палуб: <input type="number" name="count" v-model.number="formData.count">
                 </label>
             </div>
         </fieldset>
@@ -51,16 +56,16 @@
             <legend>Дополнительная информация</legend>
             <div>
                 <div><label for="comment">Комментарий к заявке</label></div>
-                <textarea name="comment" id="comment"></textarea>
+                <textarea name="comment" id="comment" v-model.trim="formData.comment"></textarea>
             </div>
 
             <div>
                 <p>Как с Вами лучше связаться?</p>
-                <div><label><input value="call" type="checkbox" name="contacts[]"> Телефон
+                <div><label><input value="call" type="checkbox" name="contacts[]" v-model="formData.contacts"> Телефон
                     (звонок)</label></div>
-                <div><label><input value="sms" type="checkbox" name="contacts[]"> Телефон
+                <div><label><input value="sms" type="checkbox" name="contacts[]" v-model="formData.contacts"> Телефон
                     (сообщение)</label></div>
-                <div><label><input value="email" type="checkbox" name="contacts[]"> E-mail</label>
+                <div><label><input value="email" type="checkbox" name="contacts[]" v-model="formData.contacts"> E-mail</label>
                 </div>
             </div>
         </fieldset>
@@ -68,13 +73,14 @@
         <div>
             <label>
                 Согласие на обработку персональных данных:
-                <input type="checkbox" checked name="agree">
+                <input type="checkbox" checked name="agree" v-model="formData.agree">
             </label>
         </div>
 
-        <input type="submit" value="Подобрать">
+        <input type="submit" value="Подобрать" :disabled="!formData.agree">
     </form>
 
 </div>
+<script src="js/lesson3.js"></script>
 </body>
 </html>
